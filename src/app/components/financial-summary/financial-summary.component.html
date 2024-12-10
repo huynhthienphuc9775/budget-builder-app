@@ -1,0 +1,48 @@
+<div class="relative">
+    <table class="table-auto table-fixed w-full border-collapse border border-gray-300">
+        <!-- <thead>
+            <tr>
+                <th class="border border-gray-300 px-4 py-2">Summary</th>
+                <th *ngFor="let month of months" class="border border-gray-300 px-4 py-2">
+                    {{ month }}
+                </th>
+            </tr>
+        </thead> -->
+        <tbody>
+            <!-- Total Expenses -->
+            <tr>
+                <th class="border border-gray-300 px-4 py-2 bg-gray-200">Total Expenses</th>
+                <td *ngFor="let month of months" class="border border-gray-300 px-4 py-2 truncate">
+                    {{ totalExpenses[month] || 0 }}
+                </td>
+                <td class="border border-gray-300 px-4 py-2 w-14">
+
+                </td>
+            </tr>
+
+            <!-- Profit / Loss -->
+            <tr>
+                <th class="border border-gray-300 px-4 py-2 bg-gray-200">Profit / Loss</th>
+                <td *ngFor="let month of months" class="border border-gray-300 px-4 py-2 truncate">
+                    {{ profitLoss[month] || 0 }}
+                </td>
+            </tr>
+
+            <!-- Opening Balance -->
+            <tr>
+                <th class="border border-gray-300 px-4 py-2 bg-gray-200">Opening Balance</th>
+                <td *ngFor="let month of months" class="border border-gray-300 px-4 py-2 truncate">
+                    {{ openingBalance[month] || 0 }}
+                </td>
+            </tr>
+
+            <!-- Closing Balance -->
+            <tr>
+                <th class="border border-gray-300 px-4 py-2 bg-gray-200">Closing Balance</th>
+                <td *ngFor="let month of months" class="border border-gray-300 px-4 py-2 truncate">
+                    {{ closingBalance[month] || 0 }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

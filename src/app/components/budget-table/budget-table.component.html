@@ -1,0 +1,83 @@
+<div class="overflow-y-auto mb-4 max-h-96 border border-gray-300 rounded-md">
+
+<div class="flex justify-end m-4">
+  <button (click)="addNewGroup()" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 transition">
+    Add New Group
+  </button>
+</div>
+
+<table class="table-auto w-full border-collapse border border-gray-300 mb-5">
+  <thead>
+    <tr>
+      <th class="border border-gray-300 px-4 py-2">Budget</th>
+      <th *ngFor="let month of months" class="border border-gray-300 px-4 py-2">
+        {{ month }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Iterate through groups -->
+    <ng-container *ngFor="let group of budgets | keyvalue">
+      <!-- Group Row -->
+      <tr>
+        <td colspan="1000" class="bg-gray-200 font-bold border border-gray-300 px-4 py-2 text-left">
+          <div class="flex gap-2">
+            <input type="text" #inputGroupName [value]="group.key || ''"
+              (blur)="updateGroupName(group.key, inputGroupName.value)"
+              class="w-full bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500 hover:border-gray-400" />
+            <button (click)="deleteGroup(group.key)"
+              class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">
+              Delete Group
+            </button>
+          </div>
+
+        </td>
+      </tr>
+
+      <!-- Sub-Budget Rows -->
+      <tr *ngFor="let subBudget of group.value | keyvalue">
+        <th class="border border-gray-300 px-4 py-2" scope="row">
+          <input type="text" #inputSubBudget [value]="subBudget.key || ''"
+            (blur)="updateSubBudgetKey(group.key, subBudget.key, inputSubBudget.value)"
+            class="w-full bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500 hover:border-gray-400" />
+        </th>
+        <td *ngFor="let month of months" class="border border-gray-300 px-4 py-2 relative"
+          (contextmenu)="showContextMenu($event, month, subBudget.value[month] || 0)">
+          <input type="number" #inputElement [value]="subBudget.value[month] || 0"
+            (input)="updateSubBudget(group.key, subBudget.key, month, inputElement.value)"
+            class="w-full bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500 hover:border-gray-400" />
+        </td>
+        <td class="border border-gray-300 px-4 py-2 w-14">
+          <button (click)="deleteSub(group.key, subBudget.key)"
+            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">
+            X
+          </button>
+        </td>
+      </tr>
+      <!-- Button to add new sub -->
+      <tr>
+        <td colspan="1000" class="text-right border border-gray-300 px-4 py-2">
+          <button (click)="addNewSub(group.key)"
+            class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">
+            Add New Sub
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<div *ngIf="contextMenu.visible" [style.left.px]="contextMenu.x" [style.top.px]="contextMenu.y"
+  class="absolute bg-white border border-gray-300 rounded-md shadow-md p-2 z-50">
+  <div class="mb-2">
+    <p class="text-sm text-gray-700">Apply value {{ contextMenu.selectedValue }} to all rows in column {{
+      contextMenu.selectedMonth }}?</p>
+  </div>
+  <button (click)="applyAll()" class="w-full bg-indigo-500 text-white text-sm py-1 rounded hover:bg-indigo-600">
+    Apply All
+  </button>
+</div>
+<div (click)="closeContextMenu()" class="absolute inset-0 z-40" *ngIf="contextMenu.visible"></div>
+</div>
+
+<app-financial-summary [budgets]="budgets" [income]="income" [months]="months"
+  [initialOpeningBalance]="500"></app-financial-summary>

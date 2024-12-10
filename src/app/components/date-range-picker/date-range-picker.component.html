@@ -1,0 +1,26 @@
+<div class="flex items-center gap-3">
+    <mat-form-field>
+      <input matInput [matDatepicker]="dpStart" [formControl]="start">
+      <mat-datepicker-toggle matIconSuffix [for]="dpStart"></mat-datepicker-toggle>
+      <mat-datepicker 
+        #dpStart 
+        startView="multi-year" 
+        (monthSelected)="setMonthAndYear($event, dpStart, 'start')" 
+        panelClass="example-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+  
+    <p>~</p>
+  
+    <mat-form-field>
+      <input matInput [matDatepicker]="dpEnd" [formControl]="end">
+      <mat-datepicker-toggle matIconSuffix [for]="dpEnd"></mat-datepicker-toggle>
+      <mat-datepicker 
+        #dpEnd 
+        startView="multi-year" 
+        (monthSelected)="setMonthAndYear($event, dpEnd, 'end')" 
+        panelClass="example-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  
