@@ -1,22 +1,19 @@
-<div class="relative">
-    <table class="table-auto table-fixed w-full border-collapse border border-gray-300">
-        <!-- <thead>
+<div class="w-full overflow-x-auto">
+    <table class="table-auto  w-full border-collapse border border-gray-300">
+        <thead>
             <tr>
                 <th class="border border-gray-300 px-4 py-2">Summary</th>
                 <th *ngFor="let month of months" class="border border-gray-300 px-4 py-2">
                     {{ month }}
                 </th>
             </tr>
-        </thead> -->
+        </thead>
         <tbody>
             <!-- Total Expenses -->
             <tr>
                 <th class="border border-gray-300 px-4 py-2 bg-gray-200">Total Expenses</th>
                 <td *ngFor="let month of months" class="border border-gray-300 px-4 py-2 truncate">
                     {{ totalExpenses[month] || 0 }}
-                </td>
-                <td class="border border-gray-300 px-4 py-2 w-14">
-
                 </td>
             </tr>
 
